@@ -1,24 +1,45 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:vm="using:UniversityFaceRecognitionApp.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:avalonia="clr-namespace:VisioForge.Core.UI.Avalonia;assembly=VisioForge.Core.UI.Avalonia"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="UniversityFaceRecognitionApp.Views.MainWindow"
-        x:DataType="vm:MainWindowViewModel"
         Icon="/Assets/avalonia-logo.ico"
-        Title="UniversityFaceRecognitionApp">
+        Title="Video Capture Demo" Height="550" Width="864">
 
-    <Design.DataContext>
-        <!-- This only sets the DataContext for the previewer in an IDE,
-             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+    <!--<Design.DataContext>
+        ~1~ This only sets the DataContext for the previewer in an IDE,
+             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) @1@
         <vm:MainWindowViewModel/>
-    </Design.DataContext>
+    </Design.DataContext>-->
 
-    <Panel>
-        <Button VerticalAlignment="Top">
-            <PathIcon Data="{StaticResource toolbox_regular}"/>
-        </Button>
-    </Panel>
+	<Grid>
+		<TabControl HorizontalAlignment="Left" Margin="12,12,0,0" Name="tcMain" Width="408" Height="419" VerticalAlignment="Top">
+			<TabItem Header="Devices" Name="tabItem1">
+				<Grid>
+					<Label HorizontalAlignment="Left" Margin="6,6,0,0" VerticalAlignment="Top">Video input device</Label>
+					<ComboBox Width="290" Margin="12,29,117,0" x:Name="cbVideoInputDevice" VerticalAlignment="Top" ItemsSource="{Binding VideoInputDevices}"/>
+					<Label HorizontalAlignment="Left" Margin="6,69,0,0" VerticalAlignment="Top">Video input format</Label>
+					<ComboBox Width="250" Margin="12,92,117,0" x:Name="cbVideoInputFormat" VerticalAlignment="Top" ItemsSource="{Binding VideoInputFormats}" />
+					<CheckBox Margin="150,62,117,0" x:Name="cbUseBestVideoInputFormat" VerticalAlignment="Top" HorizontalAlignment="Left">Use the best</CheckBox>
+					<Label HorizontalAlignment="Left" Margin="275,69,0,0" VerticalAlignment="Top">Frame rate</Label>
+					<ComboBox HorizontalAlignment="Left" Margin="275,92,36,0" x:Name="cbVideoInputFrameRate" VerticalAlignment="Top" Width="75" ItemsSource="{Binding VideoInputFrameRates}" />
+					<Label HorizontalAlignment="Right" Margin="0,94,0,0" VerticalAlignment="Top">fps</Label>
+				</Grid>
+			</TabItem>
+		</TabControl>
+		<Button x:Name="btStop" TabIndex="54" Margin="0,0,300,10" HorizontalAlignment="Right" VerticalAlignment="Bottom" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">Stop</Button>
+		<Button x:Name="btStart" TabIndex="53" Margin="0,0,360,10" HorizontalAlignment="Right" VerticalAlignment="Bottom" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">Start</Button>
+
+		<Panel  Margin="434,33,10,145" Background="#0C0C0C" x:Name="pnScreen">
+			<avalonia:VideoView x:Name="VideoView1" Margin="0,0,0,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="Black" />
+		</Panel>
+		
+		<RadioButton HorizontalAlignment="Left" Margin="17,0,0,10" x:Name="rbPreview" VerticalAlignment="Bottom" IsChecked="True" Content="Preview"/>
+		<RadioButton HorizontalAlignment="Left" Margin="115,0,0,10" x:Name="rbCapture" VerticalAlignment="Bottom" Content="Capture"/>
+		<TextBlock x:Name="lbTimestamp" HorizontalAlignment="Left" Margin="225,0,0,17" TextWrapping="Wrap" Text="Recording time: 00:00:00" VerticalAlignment="Bottom"/>
+		<Button Content="Save snapshot" IsDefault="False" IsEnabled="True" Margin="0,0,10,10" x:Name="btSaveSnapshot" VerticalAlignment="Bottom" HorizontalAlignment="Right" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+	</Grid>
 
 </Window>

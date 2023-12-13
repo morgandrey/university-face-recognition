@@ -14,10 +14,10 @@ public partial class UniversityDbContext : DbContext
     {
     }
 
-    public virtual DbSet<Person> People { get; set; }
+    public virtual DbSet<Person> Person { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) =>
-        optionsBuilder.UseNpgsql("Host=localhost;Port=5433;Database=university_db;Username=postgres;Password=123");
+        optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=university_db;Username=postgres;Password=123");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
